@@ -1,4 +1,4 @@
-package CRUD;
+package com.sasha.hometasks.CRUD.model;
 
 public class Label {
     private String status;

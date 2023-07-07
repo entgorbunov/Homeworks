@@ -1,4 +1,9 @@
-package CRUD;
+package com.sasha.hometasks.CRUD;
+
+import com.google.gson.Gson;
+import com.sasha.hometasks.CRUD.model.Label;
+import com.sasha.hometasks.CRUD.model.Post;
+import com.sasha.hometasks.CRUD.model.Writer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,11 +18,12 @@ public class CRUDApp {
     private static int labelIdCounter = 1;
 
     public static void main(String[] args) {
+        Gson gson = new Gson();
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("=== CRUD Application ===");
+            System.out.println("=== com.sasha.hometasks.CRUD Application ===");
             System.out.println("1. Create");
             System.out.println("2. Read");
             System.out.println("3. Update");

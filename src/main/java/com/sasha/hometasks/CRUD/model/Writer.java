@@ -1,4 +1,4 @@
-package CRUD;
+package com.sasha.hometasks.CRUD.model;
 
 import java.util.List;
 
