@@ -1,33 +1,43 @@
 package com.sasha.hometasks.CRUD.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Writer {
-    private String status;
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private List<Post> posts;
-    public Writer(int id, String firstName, String lastName, List<Post> posts) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.posts = posts;
+    private PostStatus status = PostStatus.ACTIVE;
+
+
+    @Override
+    public String toString() {
+        return "Writer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", posts=" + posts +
+                '}';
     }
 
-    public String getStatus() {
-        return status;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Writer writer)) return false;
+        return getId() == writer.getId() && Objects.equals(getFirstName(), writer.getFirstName()) && Objects.equals(getLastName(), writer.getLastName()) && Objects.equals(getPosts(), writer.getPosts());
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstName(), getLastName(), getPosts());
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,13 +65,11 @@ public class Writer {
         this.posts = posts;
     }
 
-    @Override
-    public String toString() {
-        return "Writer{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", posts=" + posts +
-                '}';
+    public PostStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PostStatus status) {
+        this.status = status;
     }
 }
