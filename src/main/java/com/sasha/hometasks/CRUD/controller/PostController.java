@@ -1,13 +1,13 @@
 package com.sasha.hometasks.CRUD.controller;
 
 import com.sasha.hometasks.CRUD.model.Post;
-import com.sasha.hometasks.CRUD.repository.PostRepository;
-import com.sasha.hometasks.CRUD.repository.gson.GsonPostRepositoryImpl;
+import com.sasha.hometasks.CRUD.repository.PostStorage;
+import com.sasha.hometasks.CRUD.repository.gson.GsonPostStorageClass;
 
 import java.util.List;
 
 public class PostController {
-    private static final PostRepository postRepository = new GsonPostRepositoryImpl();
+    private static final PostStorage postStorage = new GsonPostStorageClass();
 
     public Post save(String content) {
         if (content.isEmpty() || content.isBlank()) {
@@ -16,7 +16,7 @@ public class PostController {
 
         Post post = new Post();
         post.setContent(content);
-        return postRepository.save(post);
+        return postStorage.save(post);
     }
 
     public Post getById(Integer id) {
@@ -24,11 +24,11 @@ public class PostController {
             return null;
         }
 
-        return postRepository.getById(id);
+        return postStorage.getById(id);
     }
 
     public static List<Post> getAll() {
-        return postRepository.getAll();
+        return postStorage.getAll();
     }
 
     public Post update(Post post) {
@@ -36,7 +36,7 @@ public class PostController {
             return null;
         }
 
-        return postRepository.update(post);
+        return postStorage.update(post);
     }
 
     public boolean deleteById(Integer id) {
@@ -44,6 +44,6 @@ public class PostController {
             return false;
         }
 
-        return postRepository.deleteById(id);
+        return postStorage.deleteById(id);
     }
 }

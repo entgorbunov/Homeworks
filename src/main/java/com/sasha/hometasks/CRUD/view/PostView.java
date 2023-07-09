@@ -18,13 +18,13 @@ public class PostView {
         while (true) {
             command = reader.nextLine();
             switch (command) {
-                case "-c" -> createPost();
-                case "-r" -> getPostById();
-                case "-ra" -> getAllPosts();
-                case "-u" -> updatePost();
-                case "-d" -> deletePost();
-                case "-help" -> showListOfCommands();
-                case "-exit" -> {
+                case "c" -> createPost();
+                case "r" -> getPostById();
+                case "ra" -> getAllPosts();
+                case "u" -> updatePost();
+                case "d" -> deletePost();
+                case "help" -> showListOfCommands();
+                case "exit" -> {
                     System.out.println("Выход в главное меню");
                     return;
                 }
@@ -35,18 +35,18 @@ public class PostView {
     }
 
     private void showListOfCommands() {
-        System.out.printf("\n***Вы в редакторе хранилища posts.json***\n\n" +
+        System.out.printf("\n***Вы редактируете posts.json***\n\n" +
                 "Список команд:\n" +
-                "%-15s -c\n" +
-                "%-15s -r\n" +
-                "%-15s -ra\n" +
-                "%-15s -u\n" +
-                "%-15s -d\n" +
-                "%-15s -help\n" +
-                "%-15s -exit\n", "добавить:", "получить:", "получить всех:", "изменить:", "удалить:", "список команд:", "главное меню:");
+                "%-15s c\n" +
+                "%-15s r\n" +
+                "%-15s ra\n" +
+                "%-15s u\n" +
+                "%-15s d\n" +
+                "%-15s help\n" +
+                "%-15s exit\n", "добавить:", "получить:", "получить всех:", "изменить:", "удалить:", "список команд:", "главное меню:");
     }
 
-    private int validateId() {
+    private int checkId() {
         int id;
         while (true) {
             System.out.print("Введите id: ");
@@ -76,7 +76,7 @@ public class PostView {
     }
 
     public void getPostById() {
-        int id = validateId();
+        int id = checkId();
         Post post = postController.getById(id);
         if (post == null)
             System.out.println("Пост с таким id не существует");
@@ -90,7 +90,7 @@ public class PostView {
     }
 
     public void updatePost() {
-        int id = validateId();
+        int id = checkId();
         Post post = postController.getById(id);
         if (post == null)
             System.out.println("Пост с таким id не существует");
@@ -108,7 +108,7 @@ public class PostView {
     }
 
     public void deletePost() {
-        int id = validateId();
+        int id = checkId();
         if (postController.deleteById(id))
             System.out.printf("Пост с id %d удалён\n", id);
         else

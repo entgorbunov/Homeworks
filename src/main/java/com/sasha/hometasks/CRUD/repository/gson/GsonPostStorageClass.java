@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sasha.hometasks.CRUD.model.Post;
 import com.sasha.hometasks.CRUD.model.PostStatus;
-import com.sasha.hometasks.CRUD.repository.PostRepository;
+import com.sasha.hometasks.CRUD.repository.PostStorage;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GsonPostRepositoryImpl implements PostRepository {
+public class GsonPostStorageClass implements PostStorage {
     private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final String POSTS_FILE_PATH = "src/main/java/com/sasha/hometasks/CRUD/posts.json";
 

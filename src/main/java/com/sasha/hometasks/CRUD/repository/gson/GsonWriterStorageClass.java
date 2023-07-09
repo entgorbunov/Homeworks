@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sasha.hometasks.CRUD.model.PostStatus;
 import com.sasha.hometasks.CRUD.model.Writer;
-import com.sasha.hometasks.CRUD.repository.WriterRepository;
+import com.sasha.hometasks.CRUD.repository.WriterStorage;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,9 +13,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class GsonWriterRepositoryImpl implements WriterRepository {
+public class GsonWriterStorageClass implements WriterStorage {
     private final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
     private final String WRITERS_FILE_PATH = "src/main/java/com/sasha/hometasks/CRUD/writers.json";
 

@@ -19,13 +19,13 @@ public class LabelView {
         while(true){
             command = reader.nextLine();
             switch (command) {
-                case "-c" -> createLabel();
-                case "-r" -> getLabelById();
-                case "-ra" -> getAllLabels();
-                case "-u" -> updateLabel();
-                case "-d" -> deleteLabel();
-                case "-help" -> showListOfCommands();
-                case "-exit" -> {
+                case "c" -> createLabel();
+                case "r" -> getLabelById();
+                case "ra" -> getAllLabels();
+                case "u" -> updateLabel();
+                case "d" -> deleteLabel();
+                case "help" -> showListOfCommands();
+                case "exit" -> {
                     System.out.println("Выход в главное меню");
                     return;
                 }
@@ -36,18 +36,18 @@ public class LabelView {
     }
 
     private void showListOfCommands(){
-        System.out.printf("\n***Вы в редакторе хранилища labels.json***\n\n" +
+        System.out.printf("\n***Вы в редакторе labels.json***\n\n" +
                 "Список команд:\n" +
-                "%-15s -c\n" +
-                "%-15s -r\n" +
-                "%-15s -ra\n" +
-                "%-15s -u\n" +
-                "%-15s -d\n" +
-                "%-15s -help\n" +
-                "%-15s -exit\n", "добавить:", "получить:", "получить всех:", "изменить:", "удалить:", "список команд:", "главное меню:");
+                "%-15s c\n" +
+                "%-15s r\n" +
+                "%-15s ra\n" +
+                "%-15s u\n" +
+                "%-15s d\n" +
+                "%-15s help\n" +
+                "%-15s exit\n", "добавить:", "получить:", "получить всех:", "изменить:", "удалить:", "список команд:", "главное меню:");
     }
 
-    private int validateId(){
+    private int checkId(){
         int id;
         while (true) {
             System.out.print("Введите id: ");
@@ -77,7 +77,7 @@ public class LabelView {
     }
 
     public void getLabelById(){
-        int id = validateId();
+        int id = checkId();
         Label label = labelController.getById(id);
         if(label == null)
             System.out.println("Лейбл с таким id не существует");
@@ -92,7 +92,7 @@ public class LabelView {
     }
 
     public void updateLabel(){
-        int id = validateId();
+        int id = checkId();
         Label label = labelController.getById(id);
         if(label == null)
             System.out.println("Пост с таким id не существует");
@@ -103,14 +103,14 @@ public class LabelView {
             label.setName(name);
             if(labelController.update(label) == null)
                 System.out.println("Неверный формат\n" +
-                        "Убедитесь, что строка не пустая и не превышает 16 символов");
+                        "Убедитесь, что строка не пустая и не превышает 10 символов");
             else
                 System.out.printf("Лейбл изменен: %s\n", label);
         }
     }
 
     public void deleteLabel(){
-        int id = validateId();
+        int id = checkId();
         if(labelController.deleteById(id))
             System.out.printf("Лейбл с id %d удален\n", id);
         else

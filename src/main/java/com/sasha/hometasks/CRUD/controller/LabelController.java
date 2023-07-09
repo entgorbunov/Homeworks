@@ -1,13 +1,13 @@
 package com.sasha.hometasks.CRUD.controller;
 
 import com.sasha.hometasks.CRUD.model.Label;
-import com.sasha.hometasks.CRUD.repository.LabelRepository;
-import com.sasha.hometasks.CRUD.repository.gson.GsonLabelRepositoryImpl;
+import com.sasha.hometasks.CRUD.repository.LabelStorage;
+import com.sasha.hometasks.CRUD.repository.gson.GsonLabelStorageClass;
 
 import java.util.List;
 
 public class LabelController {
-    private final LabelRepository labelRepository = new GsonLabelRepositoryImpl();
+    private final LabelStorage labelStorage = new GsonLabelStorageClass();
     public Label save(String name) {
         String checkedName = name.replaceAll("[^\\p{L}]", "");
         if(checkedName.isEmpty() || checkedName.isBlank() || checkedName.length() > 20)
@@ -24,32 +24,32 @@ public class LabelController {
             label.setId(id);
         }
 
-        labelRepository.save(label);
+        labelStorage.save(label);
 
         return label;
     }
 
     public List<Label> getAll(){
-        return labelRepository.getAll();
+        return labelStorage.getAll();
     }
 
     public Label getById(Integer id){
         if(id <= 0)
             return null;
 
-        return labelRepository.getById(id);
+        return labelStorage.getById(id);
     }
 
     public Label update(Label label){
         label.setName(label.getName().replaceAll("[^\\p{L}]", ""));
         if(label.getName().isEmpty() || label.getName().isBlank() || label.getName().length() > 20)
             return null;
-        return labelRepository.update(label);
+        return labelStorage.update(label);
     }
     public boolean deleteById(Integer id){
         if(id <= 0)
             return false;
 
-        return labelRepository.deleteById(id);
+        return labelStorage.deleteById(id);
     }
 }

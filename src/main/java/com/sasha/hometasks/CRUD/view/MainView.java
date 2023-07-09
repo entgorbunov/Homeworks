@@ -1,8 +1,6 @@
 package com.sasha.hometasks.CRUD.view;
 
 
-import com.sasha.hometasks.CRUD.model.Writer;
-
 import java.util.Scanner;
 
 public class MainView {
@@ -11,7 +9,7 @@ public class MainView {
     private final LabelView labelView = new LabelView();
     private final Scanner reader = new Scanner(System.in);
 
-    public void handleStartRequest() {
+    public void Start() {
         showListOfCommands();
 
         String command;

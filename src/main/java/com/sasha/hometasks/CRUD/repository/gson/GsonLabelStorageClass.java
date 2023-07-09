@@ -5,9 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sasha.hometasks.CRUD.model.Label;
 import com.sasha.hometasks.CRUD.model.PostStatus;
-import com.sasha.hometasks.CRUD.repository.LabelRepository;
+import com.sasha.hometasks.CRUD.repository.LabelStorage;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GsonLabelRepositoryImpl implements LabelRepository {
+public class GsonLabelStorageClass implements LabelStorage {
     private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final String LABEL_FILE_PATH = "src/main/java/com/sasha/hometasks/CRUD/labels.json";
 

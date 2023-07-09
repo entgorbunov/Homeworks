@@ -22,13 +22,13 @@ public class WriterView {
         while(true){
             command = reader.nextLine();
             switch (command) {
-                case "-c" -> createWriter();
-                case "-r" -> getWriterById();
-                case "-ra" -> getAllWriters();
-                case "-u" -> updateWriter();
-                case "-d" -> deleteWriter();
-                case "-help" -> showListOfCommands();
-                case "-exit" -> {
+                case "c" -> createWriter();
+                case "r" -> getWriterById();
+                case "ra" -> getAllWriters();
+                case "u" -> updateWriter();
+                case "d" -> deleteWriter();
+                case "help" -> showListOfCommands();
+                case "exit" -> {
                     System.out.println("Выход в главное меню");
                     return;
                 }
@@ -38,15 +38,15 @@ public class WriterView {
         }
     }
     private void showListOfCommands(){
-        System.out.printf("\n***Вы в редакторе хранилища writers.json***\n\n" +
+        System.out.printf("\n***Вы в редакторе writers.json***\n\n" +
                 "Список команд:\n" +
-                "%-15s -c\n" +
-                "%-15s -r\n" +
-                "%-15s -ra\n" +
-                "%-15s -u\n" +
-                "%-15s -d\n" +
-                "%-15s -help\n" +
-                "%-15s -exit\n", "добавить:", "получить:", "получить всех:", "изменить:", "удалить:", "список команд:", "главное меню:");
+                "%-15s c\n" +
+                "%-15s r\n" +
+                "%-15s ra\n" +
+                "%-15s u\n" +
+                "%-15s d\n" +
+                "%-15s help\n" +
+                "%-15s exit\n", "добавить:", "получить:", "получить всех:", "изменить:", "удалить:", "список команд:", "главное меню:");
     }
     private int checkId(){
         int id;
