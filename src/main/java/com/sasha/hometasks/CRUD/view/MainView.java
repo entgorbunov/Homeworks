@@ -27,15 +27,15 @@ public class MainView {
                 case "3":
                     labelView.handleRequest();
                     break;
-                case "-help":
+                case "help":
                     showListOfCommands();
                     break;
-                case "-exit":
+                case "exit":
                     System.out.println("Завершение программы");
                     return;
                 default:
                     System.out.println("Вы ввели неверную команду\n" +
-                            "список команд: -help");
+                            "список команд: help");
             }
 
         }
@@ -47,8 +47,8 @@ public class MainView {
                 "%-19s 1\n" +
                 "%-19s 2\n" +
                 "%-19s 3\n" +
-                "%-18s -help\n" +
-                "%-18s -exit\n", "writers.json:", "posts.json:", "labels.json:", "список команд:", "завершить работу:");
+                "%-18s help\n" +
+                "%-18s exit\n", "writers.json:", "posts.json:", "labels.json:", "список команд:", "завершить работу:");
     }
 }
 

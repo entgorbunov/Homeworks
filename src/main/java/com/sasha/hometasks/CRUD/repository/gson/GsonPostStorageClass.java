@@ -14,10 +14,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GsonPostStorageClass implements PostStorage {
     private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final String POSTS_FILE_PATH = "src/main/java/com/sasha/hometasks/CRUD/posts.json";
+    private AtomicInteger nextId = new AtomicInteger(1);
 
     private List<Post> getAllInternal() {
         List<Post> allPosts;
@@ -42,8 +45,13 @@ public class GsonPostStorageClass implements PostStorage {
         }
     }
 
+    private int getNextId() {
+        return nextId.getAndIncrement();
+    }
+
     @Override
     public Post save(Post post) {
+        post.setId(getNextId());
         List<Post> allPosts = getAllInternal();
         try (FileWriter writer = new FileWriter(POSTS_FILE_PATH)) {
             allPosts.add(post);
@@ -58,16 +66,17 @@ public class GsonPostStorageClass implements PostStorage {
     @Override
     public Post update(Post post) {
         List<Post> allPosts = getAllInternal();
-        for (Post p : allPosts) {
-            if (p.getId().equals(post.getId()) && p.getStatus() == PostStatus.ACTIVE) {
-                p.setContent(post.getContent());
-                p.setCreated(post.getCreated());
-                p.setUpdated(post.getUpdated());
-                p.setLabels(post.getLabels());
-                break;
-            }
-        }
-        writeToFile(allPosts);
+        Optional<Post> optionalPost = allPosts.stream()
+                .filter(p -> p.getId().equals(post.getId()) && p.getStatus() == PostStatus.ACTIVE)
+                .findFirst();
+        optionalPost.ifPresent(p -> {
+            p.setContent(post.getContent());
+            p.setCreated(post.getCreated());
+            p.setUpdated(post.getUpdated());
+            p.setLabels(post.getLabels());
+            writeToFile(allPosts);
+        });
+
         return post;
     }
 
@@ -80,25 +89,24 @@ public class GsonPostStorageClass implements PostStorage {
     @Override
     public Post getById(Integer id) {
         List<Post> allPosts = getAllInternal();
-        for (Post post : allPosts) {
-            if (post.getId().equals(id) && post.getStatus() == PostStatus.ACTIVE) {
-                return post;
-            }
-        }
-        return null;
+        return allPosts.stream()
+                .filter(post -> post.getId().equals(id) && post.getStatus() == PostStatus.ACTIVE)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public boolean deleteById(Integer id) {
         List<Post> allPosts = getAllInternal();
-        for (Iterator<Post> iterator = allPosts.iterator(); iterator.hasNext(); ) {
-            Post post = iterator.next();
-            if (post.getId().equals(id) && post.getStatus() == PostStatus.ACTIVE) {
-                post.setStatus(PostStatus.DELETED);
-                iterator.remove();
-                writeToFile(allPosts);
-                return true;
-            }
+        Optional<Post> optionalPost = allPosts.stream()
+                .filter(post -> post.getId().equals(id) && post.getStatus() == PostStatus.ACTIVE)
+                .findFirst();
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            post.setStatus(PostStatus.DELETED);
+            allPosts.remove(post);
+            writeToFile(allPosts);
+            return true;
         }
         return false;
     }
