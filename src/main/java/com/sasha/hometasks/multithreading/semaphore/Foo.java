@@ -1,12 +1,12 @@
-package com.sasha.hometasks.multithreading;
+package com.sasha.hometasks.multithreading.semaphore;
 
 import java.util.concurrent.Semaphore;
 
-public class Foo1 {
+public class Foo {
     private final Semaphore semaphore1;
     private final Semaphore semaphore2;
 
-    public Foo1() {
+    public Foo() {
         semaphore1 = new Semaphore(0);
         semaphore2 = new Semaphore(0);
     }
@@ -36,14 +36,10 @@ public class Foo1 {
     }
 
     public static void main(String[] args) {
-        Foo1 foo1 = new Foo1();
+        Foo foo = new Foo();
 
-        Runnable printFirst = () -> System.out.print("first");
-        Runnable printSecond = () -> System.out.print("second");
-        Runnable printThird = () -> System.out.print("third");
-
-        new Thread(() -> foo1.first(printFirst)).start();
-        new Thread(() -> foo1.second(printSecond)).start();
-        new Thread(() -> foo1.third(printThird)).start();
+        new Thread(() -> foo.first(() -> System.out.print("first"))).start();
+        new Thread(() -> foo.second(() -> System.out.print("second"))).start();
+        new Thread(() -> foo.third(() -> System.out.print("third"))).start();
     }
 }

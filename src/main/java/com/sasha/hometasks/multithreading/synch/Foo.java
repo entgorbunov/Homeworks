@@ -1,6 +1,6 @@
-package com.sasha.hometasks.multithreading;
+package com.sasha.hometasks.multithreading.synch;
 
-public class Foo2 {
+public class Foo {
     private boolean firstDone;
     private boolean secondDone;
 
@@ -37,15 +37,15 @@ public class Foo2 {
     }
 
     public static void main(String[] args) {
-        Foo2 foo = new Foo2();
+        Foo foo = new Foo();
 
         Runnable printFirst = () -> System.out.print("first");
         Runnable printSecond = () -> System.out.print("second");
         Runnable printThird = () -> System.out.print("third");
 
-        new Thread(() -> foo.first(printFirst)).start();
-        new Thread(() -> foo.second(printSecond)).start();
-        new Thread(() -> foo.third(printThird)).start();
+        new Thread(() -> foo.first(() -> System.out.print("first"))).start();
+        new Thread(() -> foo.second(() -> System.out.print("second"))).start();
+        new Thread(() -> foo.third(() -> System.out.print("third"))).start();
 
 
     }
